@@ -24,6 +24,7 @@ SECRET_KEY = '@8tpyv9*9pui(vgvo&1gu2@r_z#$+=+km9&)4i)x@_sld@^xmy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -75,8 +76,16 @@ WSGI_APPLICATION = 'service.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_mysql',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
+        'POST': 3306,
+          'OPTIONS': {
+              "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",                                                              
+          }
+
     }
 }
 
