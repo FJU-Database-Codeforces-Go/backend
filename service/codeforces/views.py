@@ -95,7 +95,7 @@ def SelectProblem(request):
     degree =  request.GET['degree']
     count = int(request.GET['count'])
     with connection.cursor() as cursor:
-            cursor.execute("SELECT codeforces_problem.problem_id FROM codeforces_problem INNER JOIN codeforces_hastag ON codeforces_problem.problem_id = codeforces_hastag.problem_id_id INNER JOIN codeforces_ratingtable ON codeforces_ratingtable.rating_min <= codeforces_problem.problem_rating AND codeforces_problem.problem_rating < codeforces_ratingtable.rating_max WHERE codeforces_ratingtable.type='problem' AND codeforces_ratingtable.degree = %s AND codeforces_hastag.tag_id_id = %s ORDER BY RAND() LIMIT %s", [Type, degree, count])
+            cursor.execute("SELECT codeforces_problem.problem_id FROM codeforces_problem INNER JOIN codeforces_hastag ON codeforces_problem.problem_id = codeforces_hastag.problem_id_id INNER JOIN codeforces_ratingtable ON codeforces_ratingtable.rating_min <= codeforces_problem.problem_rating AND codeforces_problem.problem_rating < codeforces_ratingtable.rating_max WHERE codeforces_ratingtable.type='problem' AND codeforces_ratingtable.degree = %s AND codeforces_hastag.tag_id_id = %s ORDER BY RAND() LIMIT %s", [degree, Type, count])
             Result = namedtuplefetchall(cursor)
     data = []
     for r in Result:
