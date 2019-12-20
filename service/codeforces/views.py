@@ -20,7 +20,7 @@ def Search(request):
 
     with connection.cursor() as cursor:
         content = '%' + content + '%'
-        cursor.execute("SELECT * from codeforces_problem  WHERE codeforces_problem.problem_id = %s", [content, content])
+        cursor.execute("SELECT * from codeforces_problem  WHERE codeforces_problem.problem_id = %s", [content])
         result = namedtuplefetchall(cursor)
     data = []
     for r in result:
