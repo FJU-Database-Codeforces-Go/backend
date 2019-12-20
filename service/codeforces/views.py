@@ -19,7 +19,7 @@ def Search(request):
     content = request.GET['content']
 
     with connection.cursor() as cursor:
-        content = '%' + content + '%'
+        content = content
         cursor.execute("SELECT * from codeforces_problem  WHERE codeforces_problem.problem_id = %s", [content])
         result = namedtuplefetchall(cursor)
     data = []
