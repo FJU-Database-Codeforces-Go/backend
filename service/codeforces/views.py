@@ -19,8 +19,8 @@ def Search(request):
     content = request.GET['content']
 
     with connection.cursor() as cursor:
-        content = content
-        cursor.execute("SELECT * from codeforces_problem  WHERE codeforces_problem.problem_id = %s", [content])
+        content = '%' + content + '%'
+        cursor.execute("SELECT * from codeforces_problem WHERE codeforces_problem.problem_id LIKE %s OR codeforces_problem.problem_name LIKE %s", [content, content])
         result = namedtuplefetchall(cursor)
     data = []
     for r in result:
