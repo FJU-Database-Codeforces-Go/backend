@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
-from codeforces.views import Search, SelectProblem, ProblemDetail
+from codeforces.views import Search, SelectProblem, ProblemDetail, UserRecord
 
 
 urlpatterns = [
@@ -24,4 +24,5 @@ urlpatterns = [
     path('api/selectProblem/', SelectProblem, name='SelectProblem'),
     path('api/problemDetail/', ProblemDetail, name='ProblemDetail'),
     path('api/search/', Search, name='Sreach'),
+    path('api/userRecord/', UserRecord, name='UserRecord'),
 ]

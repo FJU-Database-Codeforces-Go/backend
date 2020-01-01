@@ -118,4 +118,31 @@ def SelectProblem(request):
             },
         )
     return JsonResponse(data, safe=False)
-    
+
+def UserRecord(request):
+    User = request.GET['User']
+    data=[]
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM `codeforces_user` WHERE user_name = %s", [User])
+        Result = namedtuplefetchall(cursor)
+    if len(Result) == 0:
+        data.append({'exist': 'No'})
+        return JsonResponse(data, safe=False)
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT submission.submission_id, submission.language_name, submission.verdict_name, submission.time, submission.memory FROM `codeforces_submit` INNER JOIN codeforces_submission AS submission ON submission_id_id = submission.submission_id WHERE user_name_id = %s", [User])
+        Result = namedtuplefetchall(cursor)
+    data.append({
+        'exist': 'Yes',
+        'number': len(Result)
+    })
+    for r in Result:
+        data.append(
+            {
+                'submission_id': r.submission_id,
+                'language_name': r.language_name,
+                'verdict_name': r.verdict_name,
+                'time': r.time,
+                'memory': r.memory
+            }
+        )
+    return JsonResponse(data, safe=False)
