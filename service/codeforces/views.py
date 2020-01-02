@@ -129,7 +129,7 @@ def UserRecord(request):
         data.append({'exist': 'No'})
         return JsonResponse(data, safe=False)
     with connection.cursor() as cursor:
-        cursor.execute("SELECT submission.submission_id, submission.language_name, submission.verdict_name, submission.time, submission.memory FROM `codeforces_submit` INNER JOIN codeforces_submission AS submission ON submission_id_id = submission.submission_id WHERE user_name_id = %s", [User])
+        cursor.execute("SELECT origin.problem_id_id, submission.language_name, submission.verdict_name, submission.time, submission.memory FROM `codeforces_submit` INNER JOIN codeforces_submission AS submission ON submission_id_id = submission.submission_id INNER JOIN codeforces_originfrom AS origin ON submission.submission_id = origin.submission_id_id WHERE user_name_id = %s", [User])
         Result = namedtuplefetchall(cursor)
     data.append({
         'exist': 'Yes',
@@ -138,7 +138,7 @@ def UserRecord(request):
     for r in Result:
         data.append(
             {
-                'submission_id': r.submission_id,
+                'problem_id': r.problem_id_id,
                 'language_name': r.language_name,
                 'verdict_name': r.verdict_name,
                 'time': r.time,
